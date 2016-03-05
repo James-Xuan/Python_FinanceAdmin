@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 """
-这是一个简单的， 轻量级的， WSGI兼容(Web Server Gateway Interface)的web 框架
+这是一个简单的、轻量级的、WSGI兼容(Web Server Gateway Interface)的web 框架
 WSGI概要：
     工作方式： WSGI server -----> WSGI 处理函数
-    作用：将HTTP原始的请求、解析、响应 这些交给WSGI server 完成，
-          让我们专心用Python编写Web业务，也就是 WSGI 处理函数
-          所以WSGI 是HTTP的一种高级封装。
+    作用：将HTTP原始的请求、解析、响应这些交给WSGI server 完成，
+          让我们专心用Python编写Web业务，也就是WSGI处理函数
+          所以WSGI是HTTP的一种高级封装。
     例子：
         wsgi 处理函数
             def application(environ, start_response):
@@ -30,8 +30,8 @@ WSGI概要：
        至于URL到函数的映射，就交给Web框架来做。
 
 设计web框架接口：
-    1. URL路由： 用于URL 到 处理函数的映射
-    2. URL拦截： 用于根据URL做权限检测
+    1. URL路由：用于URL到处理函数的映射
+    2. URL拦截：用于根据URL做权限检测
     3. 视图： 用于HTML页面生成
     4. 数据模型： 用于抽取数据（见models模块）
     5. 事物数据：request数据和response数据的封装（thread local）
@@ -426,12 +426,12 @@ _RESPONSE_HEADER_DICT = dict(zip(map(lambda x: x.upper(), _RESPONSE_HEADERS), _R
 
 class Request(object):
     """
-    请求对象， 用于获取所有http请求信息。
+    请求对象，用于获取所有http请求信息。
     """
 
     def __init__(self, environ):
         """
-        environ  wsgi处理函数里面的那个 environ
+        environ wsgi处理函数里面的那个 environ
         wsgi server调用 wsgi 处理函数时传入的
         包含了用户请求的所有数据
         """
@@ -439,9 +439,9 @@ class Request(object):
 
     def _parse_input(self):
         """
-        将通过wsgi 传入过来的参数，解析成一个字典对象 返回
+        将通过wsgi 传入过来的参数，解析成一个字典对象返回
         比如： Request({'REQUEST_METHOD':'POST', 'wsgi.input':StringIO('a=1&b=M%20M&c=ABC&c=XYZ&e=')})
-            这里解析的就是 wsgi.input 对象里面的字节流
+            这里解析的就是wsgi.input 对象里面的字节流
         """
         def _convert(item):
             if isinstance(item, list):
@@ -457,8 +457,8 @@ class Request(object):
 
     def _get_raw_input(self):
         """
-        将从wsgi解析出来的 数据字典，添加为Request对象的属性
-        然后 返回该字典
+        将从wsgi解析出来的数据字典，添加为Request对象的属性
+        然后返回该字典
         """
         if not hasattr(self, '_raw_input'):
             self._raw_input = self._parse_input()
@@ -537,7 +537,7 @@ class Request(object):
 
     def input(self, **kw):
         """
-        返回一个由传入的数据和从environ里取出的数据 组成的Dict对象，Dict对象的定义 见db模块
+        返回一个由传入的数据和从environ里取出的数据 组成的Dict对象，Dict对象的定义见db模块
 
         Get input as dict from request, fill dict using provided default value if key not exist.
         i = ctx.request.input(role='guest')
@@ -566,7 +566,7 @@ class Request(object):
 
     def get_body(self):
         """
-        从HTTP POST 请求中取得 body里面的数据，返回为一个str对象
+        从HTTP POST 请求中取得body里面的数据，返回为一个str对象
 
         >>> from StringIO import StringIO
         >>> r = Request({'REQUEST_METHOD':'POST', 'wsgi.input':StringIO('<xml><raw/>')})
@@ -807,7 +807,7 @@ class Response(object):
     @property
     def headers(self):
         """
-        setter 构造的属性，以[(key1, value1), (key2, value2)...] 形式存储 所有header的值，
+        setter 构造的属性，以[(key1, value1), (key2, value2)...] 形式存储所有header的值，
         包括cookies的值
 
         >>> r = Response()

@@ -1,0 +1,10 @@
+# MAC FILE
+*.DS_Store
+
+# RUN FILE
+*.pyc
+
+# CONFIG FILE
+www/config.py
+www/config_default.py
+www/config_override.py
